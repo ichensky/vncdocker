@@ -63,7 +63,7 @@ connect(){
 	vncviewer -via $username@$ipaddress -passwd tmp/share/.vnc/passwd localhost
 }
 
-disconect(){
+disconnect(){
 	_init
 	docker stop $containername
 	docker container rm $containername
@@ -82,7 +82,7 @@ Run gui applications with docker over VNC with SSH.
 	clean           : clean generated files
 
 	run_debug       : run docker container as `root`
-	disconect	: stop and delete docker container
+	discconect	: stop and delete docker container
 
 EXAMPLE
 	./vncdocker configure

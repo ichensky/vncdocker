@@ -15,8 +15,8 @@ Run gui applications with docker over VNC with SSH.
 
 	configure       : generate needed files used by script
 	build           : build docker image
-	run             : run docker image
-	connect         : connect to the docker image
+	run             : run docker container
+	connect         : connect to the docker container
 
 	clean           : clean generated files
 

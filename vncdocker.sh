@@ -30,16 +30,16 @@ configure(){
 	[ ! -f ~/.ssh/authorized_keys ]  && \
 		{ echo "~/.ssh/authorized_keys not exists. Run ssh-keygen to generate it" exit 1; }
 	##
+	[ -z "$1" ] && { echo "Error. Use like: vncdocker configure 'gui_app_name'" exit 1; }
+	##
+	
+	mkdir -p tmp/share tmp/share/.ssh tmp/share/.vnc
 	echo "$1" > tmp/share/.xstartup
-
-	mkdir -p tmp/share
-	mkdir -p tmp/share/.ssh
 	cp ~/.ssh/id_rsa.pub tmp/share/.ssh/authorized_keys
-	mkdir -p tmp/share/.vnc
 	_random 8 | vncpasswd -f > tmp/share/.vnc/passwd
 
-	run chmod 700 tmp/share/.ssh tmp/share/.vnc
-	run chmod 600 tmp/share/.ssh/* tmp/share/.vnc/*
+	chmod 700 tmp/share/.ssh tmp/share/.vnc
+	chmod 600 tmp/share/.ssh/* tmp/share/.vnc/*
 	##
 	_random 16 > tmp/username
 	_randomForDocker 16 > tmp/imagename
@@ -48,12 +48,14 @@ configure(){
 
 build(){
 	_init
-	docker build --build-arg username=$username -t $imagename .
+	docker build -t $imagename .
 }
 
 run(){
 	_init
-	docker run -d -v $PWD/tmp/share:/home/$username -e username=$username --name $containername $imagename
+	echo $PWD
+	echo "xxx--->> user name: $username"
+	docker run -d -v $PWD/tmp/share:/home/$username -w=/home/$username -e username=$username --name $containername $imagename
 }
 
 run_debug(){
@@ -64,7 +66,8 @@ run_debug(){
 connect(){
 	_init
 	ipaddress=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $containername)
-	vncviewer -via $username@$ipaddress -passwd tmp/share/.vnc/passwd localhost
+	echo "xxx--->> user name: $username@$ipaddress"
+	vncviewer -via $username@$ipaddress -passwd $PWD/tmp/share/.vnc/passwd localhost
 }
 
 connect_debug(){
@@ -104,4 +107,4 @@ EOF
 }
 
 #-->
-$1
+$1 $2

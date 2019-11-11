@@ -22,9 +22,7 @@ Run gui applications with docker over VNC with SSH.
 	clean           : clean generated files
 
 	run_debug       : run docker container as 
-	connect_debug   : connect to the docker container as 
-	stop_container  : stop docker container
-	rm_container    : delete docker container
+	disconect       : stop and delete docker container
 
 EXAMPLE
 	./vncdocker configure

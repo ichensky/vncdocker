@@ -34,7 +34,7 @@ configure(){
 	##
 	
 	mkdir -p tmp/share tmp/share/.ssh tmp/share/.vnc
-	echo "$1" > tmp/share/.xstartup
+	echo "exec $1" > tmp/share/.xstartup
 	cp ~/.ssh/id_rsa.pub tmp/share/.ssh/authorized_keys
 	_random 8 | vncpasswd -f > tmp/share/.vnc/passwd
 

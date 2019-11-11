@@ -1,7 +1,6 @@
 # vncdocker
 
-This script will help you securily run GUI application 
-as normal user inside of `debian` docker container.
+Run gui applications as normal user with `docker` over `VNC with SSH`.
 
 As display server used `xvfb`.
 
@@ -9,10 +8,8 @@ As vnc server used `x11vnc`.
 
 VNC connection secured by ssh.
 
+Sharing X display server with gui application over VNC with SSH should be more secure then sharing X display server from host OS with docker.
 
-This script use VNC with SSH for the connection to the gui application
-inside of docker, which should be anyway more secure then 
-sharing X display server from host OS with docker.
 ```
 Run gui applications with docker over VNC with SSH.
 

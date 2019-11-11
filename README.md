@@ -1,7 +1,7 @@
 # vncdocker
 
 This script will help you securily run GUI application 
-as normal user inside of docker container.
+as normal user inside of `debian` docker container.
 
 As display server used `xvfb`.
 

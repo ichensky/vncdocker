@@ -81,6 +81,8 @@ rm_container(){
 help(){
 	cat << EOF
 
+Run gui applications with docker over VNC with SSH.
+
 	configure       : generate needed files used by script
 	build           : build docker image
 	run             : run docker image

@@ -1,6 +1,6 @@
 from debian
 
-arg username=bob
+arg username
 env home=/home/$username
 
 run echo username=$username

@@ -19,7 +19,9 @@ For ex. for launching firefox.
 $ git clone https://github.com/ichensky/vncdocker
 ```
 * Add `vncdocker.sh` to the PATH (not required)
-* Go to example directory, build, run docker container and connect to it. 
+* Go to the `vncdocker/examples` directory
+or copy from it `Dockerfile` somewhere else and 
+run instruction to build, run and connect to the docker container. 
 ```
 $ cd vncdocker/examples
 $ vncdocker.sh configure firefox
@@ -29,4 +31,3 @@ $ vncdocker.sh connect
 ```
  
 ![example](doc/img.png)
-

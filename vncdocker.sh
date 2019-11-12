@@ -82,28 +82,7 @@ disconnect(){
 }
 
 help(){
-	cat << EOF
-
-Run gui applications with docker over VNC with SSH.
-
-	configure       : generate needed files used by script
-	build           : build docker image
-	run             : run docker container
-	connect         : connect to the docker container
-
-	clean           : clean generated files
-
-	run_debug       : run docker container as `root`
-	connect_debug   : connect to the docker container as `root`
-	disconnect	: stop and delete docker container
-
-EXAMPLE
-	./vncdocker configure
-	./vncdocker build
-	./vncdocker run
-	./vncdocker connect
-
-EOF
+	cat $(dirname $(realpath -s $0))/doc/doc.txt
 }
 
 #-->

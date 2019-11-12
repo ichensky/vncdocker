@@ -1,12 +1,10 @@
 # vncdocker
 
-Run gui applications like `firefox` with `docker` as normal user securing `VNC` connection from host OS to docker with `SSH`.
+Run gui applications like `firefox` with `docker` as normal user, securing `VNC` connection from host OS to docker with `SSH`.
 
 As display server used `xvfb`.
 
 As vnc server used `x11vnc`.
-
-VNC connection secured by ssh.
 
 Sharing X display server with gui application over VNC with SSH should be more secure then sharing X display server from host OS with docker.
 

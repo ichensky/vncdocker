@@ -10,7 +10,6 @@ _checkBin(){
 	type $1 >/dev/null 2>&1 || { echo "`$1` not installed. Abording." exit 1;}
 }
 
-
 # HERE you can predefine global variables 
 _init(){
 	username=$(cat tmp/username)
@@ -31,11 +30,16 @@ configure(){
 	[ ! -f ~/.ssh/authorized_keys ]  && \
 		{ echo "~/.ssh/authorized_keys not exists. Run ssh-keygen to generate it" exit 1; }
 	##
-	mkdir -p tmp/share
-	mkdir -p tmp/share/.ssh
+	[ -z "$1" ] && { echo "Error. Use like: vncdocker configure 'gui_app_name'" exit 1; }
+	##
+	
+	mkdir -p tmp/share tmp/share/.ssh tmp/share/.vnc
+	echo "$1" > tmp/share/.bashrc
 	cp ~/.ssh/id_rsa.pub tmp/share/.ssh/authorized_keys
-	mkdir -p tmp/share/.vnc
 	_random 8 | vncpasswd -f > tmp/share/.vnc/passwd
+
+	chmod 700 tmp/share/.ssh tmp/share/.vnc
+	chmod 600 tmp/share/.ssh/* tmp/share/.vnc/*
 	##
 	_random 16 > tmp/username
 	_randomForDocker 16 > tmp/imagename
@@ -44,12 +48,14 @@ configure(){
 
 build(){
 	_init
-	docker build --build-arg username=$username -t $imagename .
+	docker build -t $imagename .
 }
 
 run(){
 	_init
-	docker run -d -e username=$username --name $containername $imagename
+	echo $PWD
+	echo "xxx--->> user name: $username"
+	docker run -d -v $PWD/tmp/share:/home/$username -w=/home/$username -e username=$username --name $containername $imagename
 }
 
 run_debug(){
@@ -60,7 +66,13 @@ run_debug(){
 connect(){
 	_init
 	ipaddress=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $containername)
-	vncviewer -via $username@$ipaddress -passwd tmp/share/.vnc/passwd localhost
+	echo "xxx--->> user name: $username@$ipaddress"
+	vncviewer -via $username@$ipaddress -passwd $PWD/tmp/share/.vnc/passwd localhost
+}
+
+connect_debug(){
+	_init
+	docker exec -ti $containername /bin/bash
 }
 
 disconnect(){
@@ -82,7 +94,8 @@ Run gui applications with docker over VNC with SSH.
 	clean           : clean generated files
 
 	run_debug       : run docker container as `root`
-	discconect	: stop and delete docker container
+	connect_debug   : connect to the docker container as `root`
+	disconnect	: stop and delete docker container
 
 EXAMPLE
 	./vncdocker configure
@@ -94,4 +107,4 @@ EOF
 }
 
 #-->
-$1
+$1 $2

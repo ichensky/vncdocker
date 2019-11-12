@@ -1,0 +1,34 @@
+NAME
+	vncdocker
+
+SYNOPSIS
+	vncdocker [command]
+
+DESCRIPTION
+	vncdocker is as script that run gui applications with 
+	docker over VNC with SSH.
+
+OPTIONS
+	configure {guiapp}	generate needed files used by script
+			   	{guiapp} it is gui application, that
+			   	should be started, after connecting
+			   	to the docker. Example:
+				vncdocker configure firefox
+
+	build      	        build docker image
+
+	run             	run docker container
+
+	disconnect	   	stop and delete docker container
+
+	connect            	connect to the docker container
+
+	run_debug          	run docker container as `root`
+
+	connect_debug      	connect to the docker container as `root`
+
+EXAMPLE
+	vncdocker configure firefox
+	vncdocker build
+	vncdocker run
+	vncdocker connect

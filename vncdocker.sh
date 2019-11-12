@@ -53,8 +53,6 @@ build(){
 
 run(){
 	_init
-	echo $PWD
-	echo "xxx--->> user name: $username"
 	docker run -d -v $PWD/tmp/share:/home/$username -w=/home/$username -e username=$username --name $containername $imagename
 }
 
@@ -66,7 +64,6 @@ run_debug(){
 connect(){
 	_init
 	ipaddress=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $containername)
-	echo "xxx--->> user name: $username@$ipaddress"
 	vncviewer -via $username@$ipaddress -passwd $PWD/tmp/share/.vnc/passwd localhost
 }
 

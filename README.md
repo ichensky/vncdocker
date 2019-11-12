@@ -1,6 +1,6 @@
 # vncdocker
 
-Run gui applications like `firefox` as normal user with `docker` over `VNC with SSH`.
+Run gui applications like `firefox` with `docker` as normal user securing `VNC` connection from host OS to docker with `SSH`.
 
 As display server used `xvfb`.
 

@@ -1,0 +1,4 @@
+imagename=ichensky/vncdocker:firefox
+containername=vncdocker_firefox
+start=firefox
+username=john

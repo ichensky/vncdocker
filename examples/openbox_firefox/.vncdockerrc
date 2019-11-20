@@ -7,13 +7,13 @@ home=home
 share=share
 
 # docker image name
-imagename=ichensky/vncdocker:firefox
+imagename=ichensky/vncdocker:openbox_firefox
 
 # docker container name
-containername=vncdocker_firefox
+containername=vncdocker_openbox_firefox
 
 # user name inside of docker container
 username=john
 
 # starting gui app inside of docker container
-start=firefox
+start=x-window-manager

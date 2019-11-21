@@ -94,6 +94,12 @@ log(){
 test(){
 	disconnect
 	build
+	run
+	connect
+}
+test_snd(){
+	disconnect
+	build
 	run_snd
 	connect
 }

@@ -36,8 +36,26 @@ run(){
 		-w=/home/$username \
 		-e username=$username \
 		-e start=$start \
-		--name $containername $imagename
+		--name $containername $imagename \
+		bash -c '{ useradd -m -d /home/$username -s /bin/bash $username; } && \
+			su $username -c "x11vnc -forever -create -localhost -nopw & ( sleep 3 && export DISPLAY=:20 && $start )" & /usr/sbin/sshd -D'
 }
+
+# with sound
+run_snd(){
+	sudo docker run -d \
+		-v $PWD/$share:/home/$username \
+		-w=/home/$username \
+		-e username=$username \
+		-e start=$start \
+		--device /dev/snd \
+		--name $containername $imagename \
+		bash -c '{ useradd -m -d /home/$username -s /bin/bash $username; } && \
+		{ adduser $username audio; } && \
+			su $username -c "x11vnc -forever -create -localhost -nopw & ( sleep 3 && export DISPLAY=:20 && $start )" & /usr/sbin/sshd -D'
+}
+
+
 start(){
 	sudo docker start $containername
 }
@@ -76,7 +94,7 @@ log(){
 test(){
 	disconnect
 	build
-	run
+	run_snd
 	connect
 }
 

@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# docker container home dir will build from:
+home=home
+
+# docker container will share home dir:
+share=share
+
+# docker image name
+imagename=ichensky/vncdocker:openbox_gimp
+
+# docker container name
+containername=vncdocker_openbox_gimp
+
+# user name inside of docker container
+username=john
+
+# starting gui app inside of docker container
+start=x-window-manager
